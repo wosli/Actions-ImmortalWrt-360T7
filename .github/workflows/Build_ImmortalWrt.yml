@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: Build ImmortalWrt-padavanonly
+name: Build ImmortalWrt-hanwckf
 
 on:
   repository_dispatch:
@@ -17,8 +17,8 @@ permissions:
   contents: write
 
 env:
-  REPO_URL: https://github.com/padavanonly/immortalwrtARM
-  REPO_BRANCH: mt7981
+  REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x
+  REPO_BRANCH: openwrt-21.02
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: 360T7.config
   DIY_P1_SH: diy-part1.sh
@@ -130,7 +130,7 @@ jobs:
       run: |
         echo "release_tag=$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
         touch release.txt
-        echo "## Padavanonly's ImmortalWrt Release $(date +"%Y.%m.%d-%H:%M")" >> release.txt
+        echo "## hanwckf's ImmortalWrt Release $(date +"%Y.%m.%d-%H:%M")" >> release.txt
         echo "- squashfs-sysupgrade.bin" >> release.txt
         echo "  md5: $(md5sum ${{ env.FIRMWARE }}/*sysupgrade.bin | cut -d" " -f1)" >> release.txt
         echo "  sha256: $(cat ${{ env.FIRMWARE }}/sha256sums | grep -oE ".*sysupgrade.bin" | grep -oE "\w{64}")" >> release.txt
