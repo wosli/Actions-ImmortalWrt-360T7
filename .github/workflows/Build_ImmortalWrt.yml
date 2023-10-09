@@ -140,8 +140,8 @@ jobs:
         touch release.txt
         echo "## hanwckf's ImmortalWrt Release $(date +"%Y.%m.%d-%H:%M")" >> release.txt
         echo "- squashfs-sysupgrade.bin" >> release.txt
-        echo "  md5: $(md5sum ${{ env.FIRMWARE }}/*sysupgrade.bin | cut -d" " -f1)" >> release.txt
-        echo "  sha256: $(cat ${{ env.FIRMWARE }}/sha256sums | grep -oE ".*sysupgrade.bin" | grep -oE "\w{64}")" >> release.txt
+        echo "  360T7md5: $(md5sum ${{ env.FIRMWARE }}/*360-t7-108M-squashfs-sysupgrade.bin | cut -d" " -f1)" >> release.txt
+        echo "  360T7sha256: $(cat ${{ env.FIRMWARE }}/sha256sums | grep -oE ".*360-t7-108M-squashfs-sysupgrade.bin" | grep -oE "\w{64}")" >> release.txt
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: Upload firmware to release
