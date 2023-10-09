@@ -101,8 +101,7 @@ jobs:
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 V=s
         echo "status=success" >> $GITHUB_OUTPUT
-        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
-        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
+        echo "DEVICE_NAME=_mediatek_mt7981" >> $GITHUB_ENV
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
 
     - name: Check space usage
@@ -140,8 +139,12 @@ jobs:
         touch release.txt
         echo "## hanwckf's ImmortalWrt Release $(date +"%Y.%m.%d-%H:%M")" >> release.txt
         echo "- squashfs-sysupgrade.bin" >> release.txt
-        echo "  360T7md5: $(md5sum ${{ env.FIRMWARE }}/*360-t7-108M-squashfs-sysupgrade.bin | cut -d" " -f1)" >> release.txt
-        echo "  360T7sha256: $(cat ${{ env.FIRMWARE }}/sha256sums | grep -oE ".*360-t7-108M-squashfs-sysupgrade.bin" | grep -oE "\w{64}")" >> release.txt
+        echo "  360T7-md5: $(md5sum ${{ env.FIRMWARE }}/*360-t7-108M-squashfs-sysupgrade.bin | cut -d" " -f1)" >> release.txt
+        echo "  360T7-sha256: $(cat ${{ env.FIRMWARE }}/sha256sums | grep -oE ".*360-t7-108M-squashfs-sysupgrade.bin" | grep -oE "\w{64}")" >> release.txt
+        echo "  WR30U-112m-md5: $(md5sum ${{ env.FIRMWARE }}/*wr30u-112m-squashfs-sysupgrade.bin | cut -d" " -f1)" >> release.txt
+        echo "  WR30U-112m-sha256: $(cat ${{ env.FIRMWARE }}/sha256sums | grep -oE ".*wr30u-112m-squashfs-sysupgrade.bin" | grep -oE "\w{64}")" >> release.txt
+        echo "  WR30U-stock-md5: $(md5sum ${{ env.FIRMWARE }}/*wr30u-stock-squashfs-sysupgrade.bin | cut -d" " -f1)" >> release.txt
+        echo "  WR30U-stock-sha256: $(cat ${{ env.FIRMWARE }}/sha256sums | grep -oE ".*wr30u-stock-squashfs-sysupgrade.bin" | grep -oE "\w{64}")" >> release.txt
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: Upload firmware to release
@@ -155,14 +158,6 @@ jobs:
         files: |
           ${{ env.FIRMWARE }}/*sysupgrade.bin
           ImmortalWrt/.config
-
-    - name: Delete workflow runs
-      uses: Mattraks/delete-workflow-runs@main
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        repository: ${{ github.repository }}
-        retain_days: 3
-        keep_minimum_runs: 5
 
     - name: Remove old Releases
       uses: dev-drprasad/delete-older-releases@v0.2.1
