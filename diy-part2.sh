@@ -10,6 +10,7 @@
 # Description: OpenWrt DIY script part 2 (After Update feeds)
 #
 #sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf.default
+git clone https://github.com/gngpp/luci-theme-design.git  package/luci-theme-design
 sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
 git pull
 ./scripts/feeds update -a && ./scripts/feeds install -a
