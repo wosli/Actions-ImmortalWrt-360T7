@@ -19,9 +19,9 @@ sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generat
 # Modify default Hostname
 #sed -i 's/ImmortalWrt/Railgun/g' package/base-files/files/bin/config_generate
 
-- name: 替换默认主题 luci-theme-argon
+# name: 替换默认主题 luci-theme-argon
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/' feeds/luci/collections/luci/Makefile
 
-# Update Go to 1.21 for Xray-core build
+# Update Go to 1.21
 rm -rf feeds/packages/lang/golang
-git_sparse_clone https://github.com/immortalwrt/packages openwrt-23.05 lang/golang feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang -b 21.x feeds/packages/lang/golang
