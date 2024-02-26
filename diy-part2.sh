@@ -14,7 +14,7 @@
 find feeds -name Makefile -exec dirname {} \; | grep -wE 'brook|gn|chinadns-ng|dns2socks|dns2tcp|hysteria|ipt2socks|microsocks|naiveproxy|pdnsd-alt|redsocks2|sagernet-core|shadowsocks-rust|shadowsocksr-libev|simple-obfs|sing-box|ssocks|tcping|trojan|trojan-go|trojan-plus|v2ray-core|v2ray-geodata|v2ray-plugin|v2raya|xray-core|xray-plugin|lua-neturl|luci-app-ssr-plus|mosdns' | xargs rm -rf
 
 # Modify default IP
-sed -i 's/192.168.[0-9]*\.[0-9]*/192.168.2.1/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.[0-9]\{1,3\}.1/192.168.2.1/g' package/base-files/files/bin/config_generate
 
 # Modify default Hostname
 #sed -i 's/ImmortalWrt/Railgun/g' package/base-files/files/bin/config_generate
