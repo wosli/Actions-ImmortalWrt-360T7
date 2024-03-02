@@ -16,9 +16,6 @@ find feeds -name Makefile -exec dirname {} \; | grep -wE 'brook|gn|chinadns-ng|d
 # Modify default IP
 sed -i 's/192.168.[0-9]\{1,3\}.1/192.168.2.1/g' package/base-files/files/bin/config_generate
 
-# Modify default Hostname
-#sed -i 's/ImmortalWrt/Railgun/g' package/base-files/files/bin/config_generate
-
 # name: 替换默认主题 luci-theme-argon
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/' feeds/luci/collections/luci/Makefile
 
@@ -33,3 +30,6 @@ find ./ | grep Makefile | grep mosdns | xargs rm -f
 
 git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
 git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
+
+#rm istore webui
+sed -i '/luci-app-store\|luci-app-quickstart/d' target/linux/mediatek/Makefile
